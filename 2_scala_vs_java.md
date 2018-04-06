@@ -30,7 +30,7 @@ Dziedzicząc z traita, używamy słówka kluczowego `extends` albo `with` (gdy j
 Traity można traktować jak specyfikację zachowania (interfejsy Javowe) lub reużywalne kawałki logiki, które możemy wplatać we własne klasy (dzięki możliwości definiowana nie tylko zachowań ale również stanu). 
  
 Ponieważ możemy dziedziczyć z wielu traitów, każdy z nich może definiować zachowanie, implementację oraz kod inicjalizacyjny, zarówno język jak i programista muszą radzić sobie z problemami takimi jak:
- *  "diamond problem" - jak żyć gdy w hierarchii dziedziczenia wiele razy pojawia się ten sam trait?
+ *  "diamond problem" - jak żyć, gdy w hierarchii dziedziczenia wiele razy pojawia się ten sam trait?
  *  w jakiej kolejności ma być wykonany kod inicjalizacyjny?
  *  co zrobić, gdy w hierarchii dziedziczenia pojawiają się 2 implementacje tej samej metody?
  
@@ -124,7 +124,7 @@ Jak widać w przykładzie, pattern matching pozwala nam nie tylko pisać odpowie
  
 Sam pattern matching wywodzi się z języków funkcyjnych, gdzie struktury danych i funkcje na nich operujące często nie są połączone, w  przeciwieństwie do OOP, gdzie obiekt posiada tożsamość, zachowanie i stan.
  
-<iframe height="1000px" frameborder="0" style="width: 100%" src="https://embed.scalafiddle.io/embed?sfid=aFSXM3V/1&layout=v81"></iframe>
+<iframe height="800px" frameborder="0" style="width: 100%" src="https://embed.scalafiddle.io/embed?sfid=aFSXM3V/1&layout=v81"></iframe>
  
 Jeżeli nasz kod nie rozważył wszystkich wzorców i przekażemy do niego nieuwzględniony element, w czasie wykonania programu zostanie rzucony `MatchError`. Zwykle oznacza on błąd programisty, podobnie jak `NullPointerException`. Tak jak widać w przykładzie, możemy również stworzyć blok kodu, który zawiera pattern matching tylko dla podzbioru możliwych wartości. Taka funkcja ma w czasie działania typ [PartialFunction](https://www.scala-lang.org/api/current/scala/PartialFunction.html).
 
@@ -150,7 +150,7 @@ Rozwiązanie: [https://scalafiddle.io/sf/Bgt6hHq/0](https://scalafiddle.io/sf/Bg
 
 W Javie dostęp do elementów kolekcji zależy od niej samej. Inaczej wygląda to w przypadku tablic, list lub map. 
  
-Scala stara się zunifikować wszystkie te przypadki. Do elementów danej kolekcji można dobrać się przy pomocy `()` czyli metody `apply` lub "prawdziwych" metod, np `get` w mapie.
+Scala stara się zunifikować wszystkie te przypadki. Do elementów danej kolekcji można dobrać się przy pomocy `()` czyli metody `apply` lub "prawdziwych" metod, np. `get` w mapie.
 
 <iframe height="400px" frameborder="0" style="width: 100%" src="https://embed.scalafiddle.io/embed?sfid=iFTAH1M/0&layout=v60"></iframe>
 
@@ -158,7 +158,7 @@ Tak jak było wspomniane wcześniej, odwołanie `()` jest przez kompilator Scali
 
 ### Różnica pomiędzy == i eq
 
-W Scali `==` porównuje wartości (czyli działa jak wywołanie `equals`). Jeżeli chcemy otrzymać zachowanie Javowego `==`, należy użyć "magicznej" metody `eq`.
+W Scali `==` porównuje wartości (czyli wywołuje `equals`). Jeżeli chcemy otrzymać zachowanie Javowego `==`, należy użyć "magicznej" metody `eq`.
 
 Tak jak i w Javie nic nie stoi na przeszkodzie porównywania dwóch zupełnie niepowiązanych typów, np. String oraz Int (choć kompilator, jeśli tylko może, to ostrzeże nas o takiej sytuacji).
 
@@ -197,12 +197,12 @@ public static <A> List<A> listOfTwo(A first, A second) {
 
 Następne zdanie zawiera lokowanie subiektywnej opinii: składnia Scali w kontekście generyków jest bardziej spójna.
 
-W ekosystemie Scalowym programowanie generyczne jest również bardziej rozwinięte niż w Javie dzięki użyciu możliwości języka takich jak:
+W ekosystemie Scalowym programowanie generyczne jest również bardziej rozwinięte niż w Javie, dzięki użyciu możliwości języka takich jak:
  
- * kowariancja/kontrawariancja dla dowolnych typów
- * implicity
- * [type membery](https://github.com/ghik/opinionated-scala/wiki/Generics-and-type-members)
- * [higher kinded types](https://typelevel.org/blog/2016/08/21/hkts-moving-forward.html) - czyli jak napisać funkcję dla dowolnego typu generycznego, który dodatkowo sam w sobie jest ugeneryczniony
+ * kowariancja/kontrawariancja dla dowolnych typów,
+ * implicity,
+ * [type membery](https://github.com/ghik/opinionated-scala/wiki/Generics-and-type-members),
+ * [higher kinded types](https://typelevel.org/blog/2016/08/21/hkts-moving-forward.html) - czyli jak napisać funkcję dla dowolnego typu generycznego, który dodatkowo sam w sobie jest ugeneryczniony.
  
 Użycie tego typu programowania pozwala uniknąć pisania dużej ilości boilerplate'u, z drugiej strony wymaga pewnej wprawy od programistów w czytaniu sygnatur typu `def tupleTC[F[_], A, B](fa: F[A], fb: F[B])(implicit f: Bind[F]): F[(A, B)]` - to oczywiście z czasem nie jest problematyczne, ale próg wejścia dla zespołu może być wysoki.
  
@@ -224,7 +224,7 @@ Rozwiązanie: [https://scalafiddle.io/sf/S1SbsK1/0](https://scalafiddle.io/sf/S1
  
 #### Kowariancja/kontrawariancja
 
-Formalnie rzecz biorąc, kowariancja oraz kontrawariancja to relacja pomiędzy typami. Przyjmując oznaczenie `<:`, jeżeli typ `A` jest podtypem typu `B`, to możemy zapisać to `A <: B`. Mając teraz `A` oraz `B`, jeżeli `T[A] <: T[B]` (czyli `T[A] jest podtypem T[B]`) to mówimy, że `T` jest typem kowariantnym. Jeżeli natomiast `T[B] <: T[A]` to `T` jest typem kontrawariantnym.
+Formalnie rzecz biorąc, kowariancja oraz kontrawariancja to relacja pomiędzy typami. Przyjmując oznaczenie `<:`, jeżeli typ `A` jest podtypem typu `B`, to możemy zapisać to `A <: B`. Mając teraz `A` oraz `B`, jeżeli `T[A] <: T[B]` (czyli `T[A]` jest podtypem `T[B]`) to mówimy, że `T` jest typem kowariantnym. Jeżeli natomiast `T[B] <: T[A]` to `T` jest typem kontrawariantnym.
  
 Kowariancja/Kontrawariancja łączy się również z [Liskov Substitution Principle](https://en.wikipedia.org/wiki/Liskov_substitution_principle), ustalenie relacji pozwala systemowi typów powiedzieć:
 
@@ -298,11 +298,11 @@ W Javie typy takie generyczne takie jak `List` są inwariantne, możemy jednak z
  
 Kiedy pierwsze, a kiedy drugie ma sens? Osoby, które czytały [Effective Java](https://www.amazon.com/Effective-Java-3rd-Joshua-Bloch/dp/0134685997), mogą pamiętać pewien mnemonik - PECS (Producer Extends, Consumer Super). 
  
-Jeżeli typ generyczny, który akceptujemy, tylko "produkuje" dla nas (w naszym przypadku pobieramy elementy z listy) deklarujemy typ jako kowariantny poprzez użycie `extends`. Jeżeli natomiast przekazujemy obiekty do naszego typu generycznego używamy `super` (deklarujemy typ jako kontrawariantny). Gdy w naszej funkcji zarówno "produkujemy" elementy generyczne jak "konsumujemy", pozostaje nam jedynie zostawić typ jako inwariantny.
+Jeżeli typ generyczny, który akceptujemy, tylko "produkuje" dla nas (w naszym przypadku pobieramy elementy z listy) deklarujemy typ jako kowariantny poprzez użycie `extends`. Jeżeli natomiast przekazujemy obiekty do naszego typu generycznego, używamy `super` (deklarujemy typ jako kontrawariantny). Gdy w naszej funkcji zarówno "produkujemy" elementy generyczne jak "konsumujemy", pozostaje nam jedynie zostawić typ jako inwariantny.
  
 Sam kompilator Javy upewni się, że nie naruszamy tych zasad, nie jesteśmy np. w stanie przekazać elementu do typu generycznego, który został zadeklarowany jako kowariantny (linijka `//numbers.set(index, Double.valueOf("1.0"));`).
  
-Pierwsza różnica między Scalą a Javową jest taka, że tablice w Scali są inwariantne, kompilator Scali upewni się, że nie doprowadzimy do sytuacji, w której rzucony będzie `java.lang.ArrayStoreException`.
+Pierwsza różnica między Scalą a Javą jest taka, że tablice w Scali są inwariantne, kompilator Scali upewni się, że nie doprowadzimy do sytuacji, w której rzucony będzie `java.lang.ArrayStoreException`.
  
 Druga zmiana jest taka, że Scala wspiera nie tylko call-site variance, ale również declaration-site variance. 
  
