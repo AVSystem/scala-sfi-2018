@@ -25,7 +25,6 @@ Scala ma swoje dobre i złe strony. Wymaga od zespołu większej dyscypliny oraz
  * lekki podział w społeczności - Typelevel Scala, Lightbend Scala
  * dużo "magii", która może odrzucać osoby przyzwyczajone do explicitności Javy
  * łatwo (zwłaszcza na początku) pisać kod, który alokuje bardzo duże ilości tymczasowych obiektów (kolekcje pośrednie, różnego rodzaju wrappery) - zwykle nie jest to problem, ale trzeba mieć świadomość, jak część maszynerii działa pod spodem
- * możliwy problematyczny interop Java -> Scala
  * brak kompatybilności (binarnej jak i źródłowej) pomiędzy major wersjami, kod skompilowany w Scali 2.11 nie będzie działał poprawnie z kodem skompilowanym w Scali 2.12 oraz może się nie kompilować od razu w nowej major wersji scali. Może to powodować też problemy przy aktualizacji Scali, gdy jakaś nasza pośrednia zależność jeszcze nie została scross-compilowana do nowej wersji Scali. 
  * problemy wynikające z interopu pomiędzy Javą i Scalą
  * brak odpowiednika Javowych enumów, który zapewniałby wszystkie jego funkcjonalności.
