@@ -56,7 +56,7 @@ Najważniejsze elementy powyższych interfejsów:
 
 #### Tworzenie kolekcji
 
-Kolekcję dowolnego typu można utworzyć za pomocą metody `apply` z *companion object*u danego typu. Wszystkie domyślne konstruktory z pakietu `scala.collection` tworzą niemutowalne kolekcje.
+Kolekcję dowolnego typu można utworzyć za pomocą metody `apply` z *companion objectu* danego typu. Wszystkie domyślne konstruktory z pakietu `scala.collection` tworzą niemutowalne kolekcje.
 
 <iframe height="400px" frameborder="0" style="width: 100%" src="https://embed.scalafiddle.io/embed?sfid=dvPUda3/1&layout=v55"></iframe>
 
@@ -66,11 +66,11 @@ Każda kolekcja posiada też odpowiadający jej `builder` ułatwiający jej budo
 
 #### Transformacje kolekcji
 
-Bardzo bogaty interfejs kolekcji umożliwia zwięzłe wyrażenie operacji na kolekcjach. Należy jednak uważać na operacje, które tworzą nową kolekcję jako rezultat wykonania - to może być problem wydajnościowy przy pracy z dużymi kolekcjami. Zwykle mutowalne interfejsy zapewniają alternatywną metodę modyfikującą aktualną instancję kolekcji, np. `filter` i `retain`.
+Bardzo bogaty interfejs umożliwia zwięzłe wyrażenie operacji na kolekcjach. Należy jednak uważać na operacje, które tworzą nową kolekcję jako rezultat wykonania - to może być problem wydajnościowy przy pracy z dużymi kolekcjami. Zwykle mutowalne interfejsy zapewniają alternatywną metodę modyfikującą aktualną instancję, np. `filter` i `retain`.
 
 Gdy chcemy wykonać wiele operacji na jednej niemutowalnej kolekcji i nie chcemy płacić ceny za pośrednie wyniki, możemy:
 
- * użyć widoków (aczkolwiek nie ma pewności, czy nie zostaną wyrzucone z API - https://github.com/scala/collection-strawman/issues/13).
+ * użyć widoków (aczkolwiek nie ma pewności, czy nie zostaną wyrzucone z API - [https://github.com/scala/collection-strawman/issues/13](https://github.com/scala/collection-strawman/issues/13)).
  * wywołać `.iterator`, kolejkować operacje w kontekście iteratora, a następnie wywołać metodę `toKolekcja`, aby stworzyć wynik. Iterator w Scali działa podobnie jak streamy w Javie 8 - operacje wykonywane są lazy.
  * stworzyć ręcznie mutowalną kolekcję Javową/Scalową, wykonać odpowiednie transformacje, a na końcu stworzyć kolekcję wynikową.
 
@@ -81,7 +81,7 @@ Gdy chcemy wykonać wiele operacji na jednej niemutowalnej kolekcji i nie chcemy
 Biblioteka standardowa określa proste zasady porównywania kolekcji:
 
 * jeśli kolekcje pochodzą z różnych kategorii (`Map`/`Set`/`Seq`), to są różne,
-* w przeciwnym wypadku są równe, jeśli posiadają te same elementy (w przypadku sekwencji z zachowaniem kolejności).
+* w przeciwnym wypadku są równe, jeśli posiadają te same elementy (z zachowaniem kolejności w przypadku sekwencji).
 
 #### Ćwiczenie 1
 
@@ -101,7 +101,7 @@ Dokończ implementację metody `sum`, która oblicza sumę elementów z przekaza
 
 <iframe height="600px" frameborder="0" style="width: 100%" src="https://embed.scalafiddle.io/embed?sfid=MjS8JS5/2&layout=v70"></iframe>
  
-*Podpowiedź 1:* ><span style="color:white;background:white">Sygnatura metody foldLeft: def foldLeft[B](z: B)(op: (B, A) => B): B. W przypadku tego ćwiczenia A = Double.</span><
+*Podpowiedź 1:* ><span style="color:white;background:white">Sygnatura metody foldLeft: def foldLeft\[B\](z: B)(op: (B, A) => B): B. W przypadku tego ćwiczenia A = Double.</span><
 
 *Podpowiedź 2:* ><span style="color:white;background:white">Uwaga na inferencję typów: Jeśli jako parametr "z" podasz 0, kompilator uzna, że typ B to Int. </span><
 
@@ -116,6 +116,7 @@ Zaimplementuj metodę `transform` w taki sposób, aby zwróciła sekwencję elem
 <iframe height="600px" frameborder="0" style="width: 100%" src="https://embed.scalafiddle.io/embed?sfid=5zzDxUo/6&layout=v70"></iframe>
 
 *Podpowiedź 1:* ><span style="color:white;background:white">Najkrótszym rozwiązaniem jest zastosowanie metody _.collect, która przyjmuje PartialFunction i do wynikowej kolekcji przenosi tylko wyniki z dopasowanych wartości.</span><
+
 *Podpowiedź 2:* ><span style="color:white;background:white">Metoda _.collect to połączenie metod _.filter i _.map. Możesz spróbować zaimplemntować tą operację w dwóch krokach.</span><
 
 Rozwiązanie: [https://scalafiddle.io/sf/VwKbaLx/0](https://scalafiddle.io/sf/VwKbaLx/0)
@@ -159,7 +160,7 @@ val transformed: Either[Int, String] =
 
 #### Ćwiczenie
 
-W obiekcie `Api` znajduje się implementacja metody `checkPrime`, która sprawdza, czy podana liczba jest pierwsza. Ponadto jeśli podany argument jest mniejszy niż 2, to rzuca wyjątek. Używając metody `checkPrime` zaimplementuj metodę `isNotPrime`, która zwraca `Either[String, Boolean]`, przyjmując `Right` jako odpowiedź dla poprawnych zapytań i `Left` jako zgłoszony błąd dla niepoprawnych wywołań (metoda `getMessage()` na wyjątku). 
+W obiekcie `Api` znajduje się implementacja metody `checkPrime`, która sprawdza, czy podana liczba jest pierwsza. Ponadto jeśli podany argument jest mniejszy niż 2, to rzuca wyjątek. Używając metody `checkPrime`, zaimplementuj metodę `isNotPrime`, która zwraca `Either[String, Boolean]`, przyjmując `Right` jako odpowiedź dla poprawnych zapytań i `Left` jako zgłoszony błąd dla niepoprawnych wywołań (metoda `getMessage()` na wyjątku). 
 
 <iframe height="700px" frameborder="0" style="width: 100%" src="https://embed.scalafiddle.io/embed?sfid=CD2MSow/4&layout=v70"></iframe>
 
@@ -199,12 +200,12 @@ object RunNow extends ExecutionContext {
 #### Obsługa wyników
 
 Podobnie jak `Try`, `Future` zapewnia bogate API, m&#46;in. (sygnatury uproszczone):
-* `map[S](f: T => S): Future[S]`
-  `flatMap[S](f: T => Future[S]): Future[S]`
+* `map[S](f: T => S): Future[S]`,
+  `flatMap[S](f: T => Future[S]): Future[S]` - 
   pozwalają na dalszą obróbkę otrzymanego wyniku,
 * `onComplete[U](f: Try[T] => U): Unit` - pozwala wykonać kolejne operacje po zakończeniu (sukcesem lub wyjątkiem) wszystkich obliczeń,
-* `Future.sequence[A](in: Seq[Future[A]]): Future[Seq[A]]`
-  `Future.traverse[A, B](in: Seq[A])(fn: A => Future[B]): Future[Seq[B]]`
+* `Future.sequence[A](in: Seq[Future[A]]): Future[Seq[A]]`,
+  `Future.traverse[A, B](in: Seq[A])(fn: A => Future[B]): Future[Seq[B]]` -
   zbierają wiele operacji równoległych w jeden `Future` zawierający sekwencję wyników,
 * `Await.result` - pozwala poczekać w wywołującym wątku na wynik obliczeń z zadanego `Future` (uwaga: nie działa w Scala.js ze względu na model wykonania JavaScriptu).
 
@@ -215,9 +216,10 @@ Zaimplementuj metodę `makeLowerCaseString`tak, aby zwróciła `Future` zawieraj
 <iframe height="600px" frameborder="0" style="width: 100%" src="https://embed.scalafiddle.io/embed?sfid=jqmxWTp/2&layout=v70"></iframe>
 
 *Podpowiedź 1:* ><span style="color:white;background:white">Zamiany Seq[Future[A]] na Future[Seq[A]] można dokonać za pomocą Future.sequence.</span><
+
 *Podpowiedź 2:* ><span style="color:white;background:white">Sekwencję Stringów można sklepić do jednego Stringa za pomocą metody _.mkString(separator).</span><
 
-Rozwiązanie: https://scalafiddle.io/sf/1advK1u/0
+Rozwiązanie: [https://scalafiddle.io/sf/1advK1u/0](https://scalafiddle.io/sf/1advK1u/0)
 
 ### For comprehension
 
@@ -241,7 +243,7 @@ Jako generatory mogą również posłużyć typy poznane powyżej, czyli: kolekc
 
 <iframe height="300px" frameborder="0" style="width: 100%" src="https://embed.scalafiddle.io/embed?sfid=6wu1bW5/2&layout=v70"></iframe>
 
-For comprehension jest tak naprawdę przyjemniejszą formą zapisu ciągu wywołań metod `withFilter`, `map` i `flatMap`. Pierwszy przykład zapisany wprost wyglądałby tak:
+For comprehension jest tak naprawdę przyjemniejszą formą zapisu ciągu wywołań metod `withFilter`, `foreach`, `map` i `flatMap`. Pierwszy przykład zapisany wprost wyglądałby tak:
 
 <iframe height="300px" frameborder="0" style="width: 100%" src="https://embed.scalafiddle.io/embed?sfid=KhKqkOK/0&layout=v70"></iframe>
 
@@ -249,7 +251,7 @@ Z tego wynika, że jeśli Twoja klasa posiada zaimplementowane te metody, to mo�
 
 <iframe height="600px" frameborder="0" style="width: 100%" src="https://embed.scalafiddle.io/embed?sfid=7czP9tl/1&layout=v90"></iframe>
 
-`for comprehension` często się wykorzystuje przy pracy z monadami (np. `Option`). Jeżeli sami tworzymy klasę do `for comprehension` metody `map` oraz `flatMap` powinny spełniać pewne [prawa](https://miklos-martin.github.io/learn/fp/2016/03/10/monad-laws-for-regular-developers.html) tak aby nasza klasa była monadą.
+`for comprehension` często się wykorzystuje przy pracy z monadami (np. `Option`). Jeżeli sami tworzymy klasę do `for comprehension`, metody `map` oraz `flatMap` powinny spełniać pewne [prawa](https://miklos-martin.github.io/learn/fp/2016/03/10/monad-laws-for-regular-developers.html) tak, aby nasza klasa była monadą.
 
 #### Ćwiczenie 1
 
