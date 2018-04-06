@@ -14,7 +14,7 @@ Dla przykładu linked lista może być albo pustą listą (oznaczaną często ja
 
 Podobnie możemy opisać drzewo binarne. Element drzewa może być pusty, może być liściem lub zwykłym węzłem, który posiada wskazanie na lewe i prawe dziecko.
  
-Często struktury modelowane przez ADT są rekursywne (tak jak lista, drzewo), wynika z tego, że często operacje na takich strukturach również w bardzo elegancki sposób można zaimplementować przez funkcje rekursywne. Tutaj przydaje się fakt, że Scala jest w stanie zoptymalizować rekursję ogonową do zwykłej pętli. W Javie najczęściej trzeba by pisać od razu iteracyjne wersje algorytmów, aby uniknąć przepełnienia stosu przy dużym rozmiarze struktury.
+Często struktury modelowane przez ADT są rekursywne (tak jak lista, drzewo), wynika z tego, że operacje na takich strukturach również w bardzo elegancki sposób można zaimplementować przez funkcje rekursywne. Tutaj przydaje się fakt, że Scala jest w stanie zoptymalizować rekursję ogonową do zwykłej pętli. W Javie najczęściej trzeba by pisać od razu iteracyjne wersje algorytmów, aby uniknąć przepełnienia stosu przy dużym rozmiarze struktury.
  
 Wszystkie podklasy `sealed` trait/klasy muszą znajdować się w jednym pliku źródłowym. Dzięki temu kompilator ma pełną informację o wszystkich możliwych podtypach danego `sealed` typu i jest w stanie generować ostrzeżenia, gdy pattern matching nie rozważa wszystkich możliwości.
  
@@ -57,7 +57,7 @@ Rozwiązanie: [https://scalafiddle.io/sf/yjEwko2/0](https://scalafiddle.io/sf/yj
 
 Scala nie ogranicza liczby list parametrów, które może posiadać metoda albo funkcja. W najbardziej klasycznym przypadku mamy jedną listę ze wszystkimi parametrami, ale w Scali możemy również zadeklarować funkcję bez listy parametrów lub z wieloma listami.
  
-Przyjęło się, że funkcja albo metoda, która nie posiada listy parametrów, nie wykonuje żadnych efektów ubocznych (najprościej mówiąc, zastąpienie wywołania metody jej wartością nie zmieniłoby semantyki programu).
+Przyjęło się, że metoda, która nie posiada listy parametrów, nie wykonuje żadnych efektów ubocznych (najprościej mówiąc, zastąpienie wywołania metody jej wartością nie zmieniłoby semantyki programu).
  
 ```Scala
 import scala.concurrent.duration._
@@ -111,7 +111,7 @@ W miejsce `???` wpisz wartości odnalezionych implicit parametrów.
 @inline def implicitly[T](implicit e: T) = e
 ```
 
-<iframe height="1100px" frameborder="0" style="width: 100%" src="https://embed.scalafiddle.io/embed?sfid=BajMXEu/1&layout=v80"></iframe>
+<iframe height="800px" frameborder="0" style="width: 100%" src="https://embed.scalafiddle.io/embed?sfid=BajMXEu/1&layout=v80"></iframe>
 
 *Podpowiedź 1:* ><span style="color:white;background:white">Zawsze wybierana jest wartość "nabliższa" i najbardziej "konkretna". Najpierw wartości lokalne, potem companion objecty parametrów generycznych, następnie companion object klasy przyjmującej generyki. </span><
 
@@ -131,13 +131,13 @@ Rozwiązanie: [https://scalafiddle.io/sf/2wfMJKG/0](https://scalafiddle.io/sf/2w
 
 ### Type classy
 
-Type classy to bardzo potężny mechanizm programowania funkcyjnego zapewniający polimorficzne wywołania metod. W Scali można ten mechanizm traktować jako alternatywę dla dziedziczenia i nadpisywania implementacji z programowania obiektowego (tzw. [ad-hoc polimorfizm](http://blog.jaceklaskowski.pl/2015/05/15/ad-hoc-polymorphism-in-scala-with-type-classes.html))
+Type classy to bardzo potężny mechanizm programowania funkcyjnego zapewniający polimorficzne wywołania metod. W Scali można ten mechanizm traktować jako alternatywę dla dziedziczenia i nadpisywania implementacji z programowania obiektowego (tzw. [ad-hoc polimorfizm](http://blog.jaceklaskowski.pl/2015/05/15/ad-hoc-polymorphism-in-scala-with-type-classes.html)).
 
 Rozważmy taki problem: potrzebujemy mechanizmu zapisującego sekwencję elementów do pliku w formacie CSV. Stosując metody programowania obiektowego, możemy zdefiniować interfejs `CsvWriter` i zaimplementować go w każdym typie, który chcemy serializować. Takie podejście może być problemem, jeśli chcemy serializować klasy z jakiejś biblioteki i nie możemy modyfikować tych klas. 
 
 W takim przypadku lepszym rozwiązaniem będzie stworzenie type classy `CsvWriter[T]` i stworzenie instancji dla klas, które będziemy serializować.
  
-<iframe height="1200px" frameborder="0" style="width: 100%" src="https://embed.scalafiddle.io/embed?sfid=wtb8EPs/0&layout=v90"></iframe>
+<iframe height="800px" frameborder="0" style="width: 100%" src="https://embed.scalafiddle.io/embed?sfid=wtb8EPs/0&layout=v90"></iframe>
 
 W ten sposób możemy bez najmniejszego problemu zdefiniować logikę serializacji dla klas z biblioteki standardowej Javy i reużywać zaimplmentowane typeclassy, tworząc serializację bardziej złożonych typów. Cała implementacja bardzo mocno polega na *implicitach* definiowanych w *companion objectach*. W obiekcie `CsvWriter` definiujemy implementacje dla typów podstawowych, natomiast dla klas `A` i `B` implementacje znajdują się w ich *companion objectach*.
 
@@ -145,7 +145,7 @@ W ten sposób możemy bez najmniejszego problemu zdefiniować logikę serializac
 
 Zaimplementuj type classy, które pozwolą odczytać zapisane wcześniej dane.
  
-<iframe height="1500px" frameborder="0" style="width: 100%" src="https://embed.scalafiddle.io/embed?sfid=RkHxzuw/0&layout=v98"></iframe>
+<iframe height="800px" frameborder="0" style="width: 100%" src="https://embed.scalafiddle.io/embed?sfid=RkHxzuw/0&layout=v98"></iframe>
 
 Rozwiązanie: [https://scalafiddle.io/sf/OY9hTy7/0](https://scalafiddle.io/sf/OY9hTy7/0)
 
@@ -153,5 +153,5 @@ Rozwiązanie: [https://scalafiddle.io/sf/OY9hTy7/0](https://scalafiddle.io/sf/OY
 
 * [Oficjalna dokumentacja dotycząca implicit parametrów](http://docs.scala-lang.org/tour/implicit-parameters.html)
 * [Oficjalna dokumentacja dotycząca implicit konwersji](http://docs.scala-lang.org/tour/implicit-conversions.html)
-* [Opis logiki poszukiwania implicitów](https://stackoverflow.com/questions/5598085/where-does-scala-look-for-implicits](https://stackoverflow.com/questions/5598085/where-does-scala-look-for-implicits)
+* [Opis logiki poszukiwania implicitów](https://stackoverflow.com/questions/5598085/where-does-scala-look-for-implicits)
 * [Cats - Type Classes](https://typelevel.org/cats/typeclasses.html)
